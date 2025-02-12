@@ -1,0 +1,12 @@
+@Service
+public class StockService {
+    
+    private final WebClient webClient = WebClient.create("https://api.example.com/stocks");
+
+    public Mono<Stock> getStockData(String symbol) {
+        return webClient.get()
+                .uri("/price?symbol=" + symbol)
+                .retrieve()
+                .bodyToMono(Stock.class);
+    }
+}
